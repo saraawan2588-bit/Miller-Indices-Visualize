@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miller Indices Visualizer</title>
+<style>
+:root{color-scheme:light;--ink:#172033;--muted:#68738a;--line:#dbe2ee;--blue:#2563eb;--panel:#fff;--bg:#f4f7fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{padding:28px 20px 22px;background:#101d36;color:white}header .wrap,main{max-width:1080px;margin:auto}header p{margin:5px 0 0;color:#c7d3e8}h1{font-size:clamp(1.7rem,4vw,2.35rem);margin:0;letter-spacing:-.03em}main{padding:22px 16px 36px}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 14px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:10px 11px;border:1px solid #cbd5e1;border-radius:9px;background:white;color:var(--ink)}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}button{border:0;border-radius:9px;padding:10px 13px;cursor:pointer;font-weight:700}.primary{background:var(--blue);color:white}.secondary{background:#eaf0fb;color:#23416f}.note{font-size:.84rem;color:var(--muted);margin:13px 0 0}.stage{min-height:420px;display:flex;flex-direction:column}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:#eaf1ff;color:#1d4ed8;padding:4px 9px;border-radius:99px;font-weight:700}svg{display:block;width:100%;height:auto;max-height:510px;flex:1;min-height:300px}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:6px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:#f1f5f9;border-radius:10px;font-size:.9rem;color:#475569}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage{min-height:340px}header{padding:24px 18px}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Miller Indices Visualizer</h1><p>A simple, interactive first look at crystal planes in a unit cell.</p></div></header>
+<main>
+<div class="layout">
+<section class="panel" aria-label="Visualization controls">
+<h2>Choose your plane</h2>
+<div class="indices">
+<div><label for="h">h</label><input id="h" type="number" min="0" max="4" step="1" value="1"></div>
+<div><label for="k">k</label><input id="k" type="number" min="0" max="4" step="1" value="1"></div>
+<div><label for="l">l</label><input id="l" type="number" min="0" max="4" step="1" value="1"></div>
+</div>
+<label for="structure">Crystal structure</label>
+<select id="structure"><option value="sc">Simple cubic (SC)</option><option value="bcc">Body-centred cubic (BCC)</option><option value="fcc">Face-centred cubic (FCC)</option></select>
+<div class="actions"><button class="primary" id="draw">Visualize plane</button><button class="secondary" id="reset">Reset</button></div>
+<p class="note">Enter non-negative whole numbers from 0 to 4. At least one index must be greater than 0.</p>
+<div class="status" id="status" role="status">Plane (111) shown in a simple cubic unit cell.</div>
+</section>
+<section class="panel stage">
+<div class="stage-head"><h2>3D unit cell</h2><span class="pill" id="planeLabel">(111) plane</span></div>
+<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Projected 3D crystal unit cell with highlighted Miller plane"></svg>
+<div class="legend"><span><i class="dot" style="background:#2563eb"></i>Atoms</span><span><i class="dot" style="background:#f59e0b"></i>Highlighted plane</span><span><i class="dot" style="background:#94a3b8"></i>Unit-cell edges</span></div>
+</section>
+</div>
+<p class="footer">Version 1 · Runs directly in your browser · No installation or extra packages</p>
+</main>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(parent)parent.appendChild(n);return n}
+function line(a,b,attrs,parent){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],...attrs},parent)}
+function project(p){const [x,y,z]=p;return [320+(x-y)*105,270+(x+y)*55-z*125]}
+function uniquePoints(points){const out=[];points.forEach(p=>{if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<1e-6))out.push(p)});return out}
+function planePoints(h,k,l){const verts=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-1,fb=h*b[0]+k*b[1]+l*b[2]-1;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return uniquePoints(out)}
+function draw(){let h=Number($('h').value),k=Number($('k').value),l=Number($('l').value);if(![h,k,l].every(v=>Number.isInteger(v)&&v>=0&&v<=4)||h+k+l===0){$('status').textContent='Please enter whole numbers from 0 to 4, with at least one index above 0.';return}
+const svg=$('scene');svg.replaceChildren();const g=el('g',{},svg);
+const V=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
+const E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+const edgeStyle={stroke:'#94a3b8','stroke-width':2.2,'stroke-linecap':'round'};
+E.forEach(([a,b])=>line(project(V[a]),project(V[b]),edgeStyle,g));
+const pp=planePoints(h,k,l);
+if(pp.length>=3){const center=pp.reduce((a,p)=>a.map((v,i)=>v+p[i]/pp.length),[0,0,0]);pp.sort((a,b)=>Math.atan2(project(a)[1]-project(center)[1],project(a)[0]-project(center)[0])-Math.atan2(project(b)[1]-project(center)[1],project(b)[0]-project(center)[0]));el('polygon',{points:pp.map(p=>project(p).join(',')).join(' '),fill:'#f59e0b','fill-opacity':'.42',stroke:'#d97706','stroke-width':2.5},g)}else{ $('status').textContent='This plane does not cut through the displayed unit cell as a polygon. Try another index.'}
+let atoms=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
+const type=$('structure').value;if(type==='bcc')atoms.push([.5,.5,.5]);if(type==='fcc')atoms.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
+atoms.forEach(p=>{const q=project(p);el('circle',{cx:q[0],cy:q[1],r: p.every(v=>v===.5)?9:7.5,fill:'#2563eb',stroke:'#fff','stroke-width':2},g)});
+const names={sc:'Simple cubic (SC)',bcc:'Body-centred cubic (BCC)',fcc:'Face-centred cubic (FCC)'};
+$('planeLabel').textContent='('+h+k+l+') plane';$('planeLabel').textContent='('+h+' '+k+' '+l+') plane';
+$('status').textContent='Showing Miller plane ('+h+' '+k+' '+l+') in a '+names[type]+' unit cell. This is a simple geometric illustration.';
+}
+$('draw').addEventListener('click',draw);$('structure').addEventListener('change',draw);$('reset').addEventListener('click',()=>{$('h').value=1;$('k').value=1;$('l').value=1;$('structure').value='sc';draw()});
+draw();
+})();
+</script>
+</body>
+</html>
