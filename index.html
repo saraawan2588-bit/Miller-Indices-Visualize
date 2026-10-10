@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Miller Indices Visualizer</title>
 <style>
-:root{color-scheme:light;--ink:#172033;--muted:#68738a;--line:#dbe2ee;--blue:#2563eb;--panel:#fff;--bg:#f4f7fb}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-header{padding:28px 20px 22px;background:#101d36;color:white}header .wrap,main{max-width:1080px;margin:auto}header p{margin:5px 0 0;color:#c7d3e8}h1{font-size:clamp(1.7rem,4vw,2.35rem);margin:0;letter-spacing:-.03em}main{padding:22px 16px 36px}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 14px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:10px 11px;border:1px solid #cbd5e1;border-radius:9px;background:white;color:var(--ink)}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}button{border:0;border-radius:9px;padding:10px 13px;cursor:pointer;font-weight:700}.primary{background:var(--blue);color:white}.secondary{background:#eaf0fb;color:#23416f}.note{font-size:.84rem;color:var(--muted);margin:13px 0 0}.stage{min-height:420px;display:flex;flex-direction:column}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:#eaf1ff;color:#1d4ed8;padding:4px 9px;border-radius:99px;font-weight:700}svg{display:block;width:100%;height:auto;max-height:510px;flex:1;min-height:300px}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:6px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:#f1f5f9;border-radius:10px;font-size:.9rem;color:#475569}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage{min-height:340px}header{padding:24px 18px}.panel{padding:16px}}
+:root{--bg:#f3f6fb;--panel:#fff;--ink:#182338;--muted:#63718a;--line:#d8e0ed;--blue:#2563eb;--soft:#eaf0fb;--stage:#f8fbff;--edge:#94a3b8;--atom:#2563eb;--plane:#f59e0b;--status:#eff4fa}
+body[data-theme="dark"]{--bg:#0d1422;--panel:#151f31;--ink:#edf3ff;--muted:#a6b3c9;--line:#2c3a50;--blue:#78a7ff;--soft:#22324b;--stage:#101a2a;--edge:#7587a4;--atom:#78a7ff;--plane:#ffc15c;--status:#202d42;color-scheme:dark}
+body[data-theme="sepia"]{--bg:#f1e6d2;--panel:#fbf2e3;--ink:#493725;--muted:#806c54;--line:#ddc9aa;--blue:#94652b;--soft:#ead9bd;--stage:#f7ecd9;--edge:#b9a58a;--atom:#557b9c;--plane:#c47b2a;--status:#efe1ca;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;transition:background .18s,color .18s}
+header{background:#101d36;color:#fff;padding:26px 20px}header .wrap,main{max-width:1120px;margin:auto}h1{font-size:clamp(1.7rem,4vw,2.3rem);margin:0;letter-spacing:-.03em}header p{margin:5px 0 0;color:#c7d3e8}main{padding:22px 16px 36px}.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 14px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions,.themes{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}button{border:1px solid transparent;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;background:var(--soft);color:var(--ink)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:var(--blue);color:#fff}.theme-btn{flex:1;min-width:72px;border-color:var(--line)}.theme-btn[aria-pressed="true"]{outline:2px solid var(--blue);outline-offset:1px}.note{font-size:.83rem;color:var(--muted);margin:12px 0 0}.stage{min-height:500px;display:flex;flex-direction:column;background:var(--panel)}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:var(--soft);color:var(--blue);padding:4px 9px;border-radius:99px;font-weight:750}svg{display:block;width:100%;height:auto;max-height:510px;flex:1;min-height:330px;background:var(--stage);border-radius:12px;touch-action:none;cursor:grab;margin-top:12px}svg.dragging{cursor:grabbing}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:10px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:var(--status);border-radius:10px;font-size:.9rem;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}.section-label{font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}.rotation-help{font-size:.84rem;color:var(--muted);margin:8px 0 0}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage{min-height:360px}header{padding:23px 18px}.panel{padding:16px}svg{min-height:290px}}
 </style>
 </head>
-<body>
-<header><div class="wrap"><h1>Miller Indices Visualizer</h1><p>A simple, interactive first look at crystal planes in a unit cell.</p></div></header>
+<body data-theme="light">
+<header><div class="wrap"><h1>Miller Indices Visualizer</h1><p>Explore crystal structures and rotate the unit cell directly in your browser.</p></div></header>
 <main>
 <div class="layout">
 <section class="panel" aria-label="Visualization controls">
@@ -22,45 +24,76 @@ header{padding:28px 20px 22px;background:#101d36;color:white}header .wrap,main{m
 <div><label for="l">l</label><input id="l" type="number" min="0" max="4" step="1" value="1"></div>
 </div>
 <label for="structure">Crystal structure</label>
-<select id="structure"><option value="sc">Simple cubic (SC)</option><option value="bcc">Body-centred cubic (BCC)</option><option value="fcc">Face-centred cubic (FCC)</option></select>
-<div class="actions"><button class="primary" id="draw">Visualize plane</button><button class="secondary" id="reset">Reset</button></div>
-<p class="note">Enter non-negative whole numbers from 0 to 4. At least one index must be greater than 0.</p>
-<div class="status" id="status" role="status">Plane (111) shown in a simple cubic unit cell.</div>
+<select id="structure">
+<option value="sc">Simple cubic (SC)</option>
+<option value="bcc">Body-centred cubic (BCC)</option>
+<option value="fcc">Face-centred cubic (FCC)</option>
+<option value="hcp">Hexagonal close-packed (HCP)</option>
+</select>
+<div class="actions"><button class="primary" id="draw">Visualize plane</button><button id="reset">Reset view</button></div>
+<p class="note">Use whole-number indices from 0 to 4; they cannot all be zero. For HCP, this first version uses three entered indices for a simplified visual plane.</p>
+<div class="section-label">Display theme</div>
+<div class="themes" role="group" aria-label="Display theme">
+<button class="theme-btn" data-theme-choice="light" aria-pressed="true">☀ Light</button>
+<button class="theme-btn" data-theme-choice="dark" aria-pressed="false">☾ Dark</button>
+<button class="theme-btn" data-theme-choice="sepia" aria-pressed="false">▧ Sepia</button>
+</div>
+<div class="status" id="status" role="status">Showing plane (1 1 1). Drag the model to rotate it.</div>
 </section>
 <section class="panel stage">
-<div class="stage-head"><h2>3D unit cell</h2><span class="pill" id="planeLabel">(111) plane</span></div>
-<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Projected 3D crystal unit cell with highlighted Miller plane"></svg>
-<div class="legend"><span><i class="dot" style="background:#2563eb"></i>Atoms</span><span><i class="dot" style="background:#f59e0b"></i>Highlighted plane</span><span><i class="dot" style="background:#94a3b8"></i>Unit-cell edges</span></div>
+<div class="stage-head"><h2>Rotatable unit cell</h2><span class="pill" id="planeLabel">(1 1 1) plane</span></div>
+<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Rotatable crystal unit cell with highlighted plane"></svg>
+<div class="legend"><span><i class="dot" style="background:var(--atom)"></i>Atoms</span><span><i class="dot" style="background:var(--plane)"></i>Highlighted plane</span><span><i class="dot" style="background:var(--edge)"></i>Unit-cell edges</span></div>
+<p class="rotation-help">Rotate: click/touch and drag anywhere on the model. Use Reset view to return to the default angle.</p>
 </section>
 </div>
-<p class="footer">Version 1 · Runs directly in your browser · No installation or extra packages</p>
+<p class="footer">Version 2 · One standalone HTML file · No installation, downloads, packages, or server required</p>
 </main>
 <script>
 (function(){
-const $=id=>document.getElementById(id);
-const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
+let rotX=-0.38,rotY=0.58,drag=null;
 function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(parent)parent.appendChild(n);return n}
 function line(a,b,attrs,parent){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],...attrs},parent)}
-function project(p){const [x,y,z]=p;return [320+(x-y)*105,270+(x+y)*55-z*125]}
+function rotate(p){let [x,y,z]=p;x-=.5;y-=.5;z-=.5;const cy=Math.cos(rotY),sy=Math.sin(rotY),cx=Math.cos(rotX),sx=Math.sin(rotX);const x1=x*cy-z*sy,z1=x*sy+z*cy,y1=y*cx-z1*sx,z2=y*sx+z1*cx;return [x1,y1,z2]}
+function project(p){const r=rotate(p),scale=170/(2.5-r[2]*.35);return [320+r[0]*scale,235+r[1]*scale]}
 function uniquePoints(points){const out=[];points.forEach(p=>{if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<1e-6))out.push(p)});return out}
-function planePoints(h,k,l){const verts=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-1,fb=h*b[0]+k*b[1]+l*b[2]-1;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return uniquePoints(out)}
-function draw(){let h=Number($('h').value),k=Number($('k').value),l=Number($('l').value);if(![h,k,l].every(v=>Number.isInteger(v)&&v>=0&&v<=4)||h+k+l===0){$('status').textContent='Please enter whole numbers from 0 to 4, with at least one index above 0.';return}
-const svg=$('scene');svg.replaceChildren();const g=el('g',{},svg);
-const V=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
-const E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
-const edgeStyle={stroke:'#94a3b8','stroke-width':2.2,'stroke-linecap':'round'};
-E.forEach(([a,b])=>line(project(V[a]),project(V[b]),edgeStyle,g));
-const pp=planePoints(h,k,l);
-if(pp.length>=3){const center=pp.reduce((a,p)=>a.map((v,i)=>v+p[i]/pp.length),[0,0,0]);pp.sort((a,b)=>Math.atan2(project(a)[1]-project(center)[1],project(a)[0]-project(center)[0])-Math.atan2(project(b)[1]-project(center)[1],project(b)[0]-project(center)[0]));el('polygon',{points:pp.map(p=>project(p).join(',')).join(' '),fill:'#f59e0b','fill-opacity':'.42',stroke:'#d97706','stroke-width':2.5},g)}else{ $('status').textContent='This plane does not cut through the displayed unit cell as a polygon. Try another index.'}
-let atoms=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
-const type=$('structure').value;if(type==='bcc')atoms.push([.5,.5,.5]);if(type==='fcc')atoms.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
-atoms.forEach(p=>{const q=project(p);el('circle',{cx:q[0],cy:q[1],r: p.every(v=>v===.5)?9:7.5,fill:'#2563eb',stroke:'#fff','stroke-width':2},g)});
-const names={sc:'Simple cubic (SC)',bcc:'Body-centred cubic (BCC)',fcc:'Face-centred cubic (FCC)'};
-$('planeLabel').textContent='('+h+k+l+') plane';$('planeLabel').textContent='('+h+' '+k+' '+l+') plane';
-$('status').textContent='Showing Miller plane ('+h+' '+k+' '+l+') in a '+names[type]+' unit cell. This is a simple geometric illustration.';
+function getGeometry(type){
+if(type==='hcp'){
+const verts=[];for(let z of [0,1])for(let i=0;i<6;i++){const a=Math.PI/3*i;verts.push([.5+.5*Math.cos(a),.5+.5*Math.sin(a),z])}
+const edges=[];for(let i=0;i<6;i++){edges.push([i,(i+1)%6],[i+6,(i+1)%6+6],[i,i+6])}
+const atoms=verts.slice();atoms.push([.5,.5,.5],[.5+.25,.5+.433,.5],[.5-.25,.5+.433,.5]);
+return {verts,edges,atoms,planeVerts:verts,faces:[[0,1,2,3,4,5],[6,7,8,9,10,11]]}
 }
-$('draw').addEventListener('click',draw);$('structure').addEventListener('change',draw);$('reset').addEventListener('click',()=>{$('h').value=1;$('k').value=1;$('l').value=1;$('structure').value='sc';draw()});
-draw();
+const verts=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
+const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+let atoms=verts.slice();if(type==='bcc')atoms.push([.5,.5,.5]);if(type==='fcc')atoms.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
+return {verts,edges,atoms,planeVerts:verts,faces:[[0,1,2,3],[4,5,6,7]]}
+}
+function getPlanePoints(verts,edges,h,k,l){const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-1,fb=h*b[0]+k*b[1]+l*b[2]-1;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return uniquePoints(out)}
+function draw(){
+const h=Number($('h').value),k=Number($('k').value),l=Number($('l').value);
+if(![h,k,l].every(v=>Number.isInteger(v)&&v>=0&&v<=4)||h+k+l===0){$('status').textContent='Please enter whole numbers from 0 to 4, with at least one index above 0.';return}
+const type=$('structure').value,svg=$('scene');svg.replaceChildren();const g=el('g',{},svg),geo=getGeometry(type);
+geo.edges.forEach(([a,b])=>line(project(geo.verts[a]),project(geo.verts[b]),{stroke:'var(--edge)','stroke-width':2.2,'stroke-linecap':'round'},g));
+if(type==='hcp'){
+geo.faces.forEach(face=>el('polygon',{points:face.map(i=>project(geo.verts[i]).join(',')).join(' '),fill:'var(--edge)','fill-opacity':'.08',stroke:'none'},g));
+}
+const pp=getPlanePoints(geo.verts,geo.edges,h,k,l);
+if(pp.length>=3){const center=pp.reduce((a,p)=>a.map((v,i)=>v+p[i]/pp.length),[0,0,0]);pp.sort((a,b)=>{const A=project(a),B=project(b),C=project(center);return Math.atan2(A[1]-C[1],A[0]-C[0])-Math.atan2(B[1]-C[1],B[0]-C[0])});el('polygon',{points:pp.map(p=>project(p).join(',')).join(' '),fill:'var(--plane)','fill-opacity':'.43',stroke:'var(--plane)','stroke-width':2.5},g)}
+geo.atoms.forEach(p=>{const q=project(p);el('circle',{cx:q[0],cy:q[1],r: p.every(v=>v===.5)?9:7,fill:'var(--atom)',stroke:'var(--panel)','stroke-width':2},g)});
+const names={sc:'Simple cubic (SC)',bcc:'Body-centred cubic (BCC)',fcc:'Face-centred cubic (FCC)',hcp:'Hexagonal close-packed (HCP)'};
+$('planeLabel').textContent='('+h+' '+k+' '+l+') plane';
+$('status').textContent='Showing plane ('+h+' '+k+' '+l+') in '+names[type]+'. Drag the model to rotate it.';
+}
+$('draw').addEventListener('click',draw);$('structure').addEventListener('change',draw);
+$('reset').addEventListener('click',()=>{rotX=-.38;rotY=.58;$('h').value=1;$('k').value=1;$('l').value=1;$('structure').value='sc';draw()});
+document.querySelectorAll('[data-theme-choice]').forEach(btn=>btn.addEventListener('click',()=>{const theme=btn.dataset.themeChoice;document.body.dataset.theme=theme;document.querySelectorAll('[data-theme-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)))}));
+const scene=$('scene');
+scene.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};scene.classList.add('dragging');scene.setPointerCapture(e.pointerId)});
+scene.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag={x:e.clientX,y:e.clientY};rotY+=dx*.012;rotX=Math.max(-1.45,Math.min(1.45,rotX+dy*.012));draw()});
+function stopDrag(){drag=null;scene.classList.remove('dragging')}
+scene.addEventListener('pointerup',stopDrag);scene.addEventListener('pointercancel',stopDrag);draw();
 })();
 </script>
 </body>
