@@ -9,91 +9,115 @@
 body[data-theme="dark"]{--bg:#0d1422;--panel:#151f31;--ink:#edf3ff;--muted:#a6b3c9;--line:#2c3a50;--blue:#78a7ff;--soft:#22324b;--stage:#101a2a;--edge:#7587a4;--atom:#78a7ff;--plane:#ffc15c;--status:#202d42;color-scheme:dark}
 body[data-theme="sepia"]{--bg:#f1e6d2;--panel:#fbf2e3;--ink:#493725;--muted:#806c54;--line:#ddc9aa;--blue:#94652b;--soft:#ead9bd;--stage:#f7ecd9;--edge:#b9a58a;--atom:#557b9c;--plane:#c47b2a;--status:#efe1ca;color-scheme:light}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;transition:background .18s,color .18s}
-header{background:#101d36;color:#fff;padding:26px 20px}header .wrap,main{max-width:1120px;margin:auto}h1{font-size:clamp(1.7rem,4vw,2.3rem);margin:0;letter-spacing:-.03em}header p{margin:5px 0 0;color:#c7d3e8}main{padding:22px 16px 36px}.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 14px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions,.themes{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}button{border:1px solid transparent;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;background:var(--soft);color:var(--ink)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:var(--blue);color:#fff}.theme-btn{flex:1;min-width:72px;border-color:var(--line)}.theme-btn[aria-pressed="true"]{outline:2px solid var(--blue);outline-offset:1px}.note{font-size:.83rem;color:var(--muted);margin:12px 0 0}.stage{min-height:500px;display:flex;flex-direction:column;background:var(--panel)}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:var(--soft);color:var(--blue);padding:4px 9px;border-radius:99px;font-weight:750}svg{display:block;width:100%;height:auto;max-height:510px;flex:1;min-height:330px;background:var(--stage);border-radius:12px;touch-action:none;cursor:grab;margin-top:12px}svg.dragging{cursor:grabbing}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:10px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:var(--status);border-radius:10px;font-size:.9rem;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}.section-label{font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}.rotation-help{font-size:.84rem;color:var(--muted);margin:8px 0 0}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage{min-height:360px}header{padding:23px 18px}.panel{padding:16px}svg{min-height:290px}}
+header{background:#101d36;color:#fff;padding:25px 20px}header .wrap,main{max-width:1160px;margin:auto}h1{font-size:clamp(1.7rem,4vw,2.3rem);margin:0;letter-spacing:-.03em}header p{margin:5px 0 0;color:#c7d3e8}main{padding:20px 16px 36px}.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}.tab{background:var(--panel);border:1px solid var(--line);padding:10px 16px}.tab[aria-selected="true"]{background:var(--blue);color:white;border-color:var(--blue)}.tab-panel[hidden]{display:none}.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 14px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}input[type=range]{padding:0;accent-color:var(--blue)}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions,.themes,.zoom-actions{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}button{border:1px solid transparent;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;background:var(--soft);color:var(--ink)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:var(--blue);color:#fff}.theme-btn{flex:1;min-width:72px;border-color:var(--line)}.theme-btn[aria-pressed="true"]{outline:2px solid var(--blue);outline-offset:1px}.note,.rotation-help{font-size:.83rem;color:var(--muted);margin:11px 0 0}.section-label{font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}.stage{min-height:530px;display:flex;flex-direction:column;background:var(--panel)}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:var(--soft);color:var(--blue);padding:4px 9px;border-radius:99px;font-weight:750}svg{display:block;width:100%;height:auto;max-height:510px;flex:1;min-height:330px;background:var(--stage);border-radius:12px;touch-action:none;cursor:grab;margin-top:12px}svg.dragging{cursor:grabbing}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:10px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:var(--status);border-radius:10px;font-size:.9rem;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}.zoom-actions button{flex:1}.stack-info{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stack-info>div{padding:10px;border-radius:10px;background:var(--status)}.stack-info strong{display:block;font-size:1.05rem}.stack-info span{font-size:.78rem;color:var(--muted)}.stack-controls{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.stack-controls label{margin-top:8px}.stack-stage{min-height:440px}.stack-key{font-size:.9rem;color:var(--muted);margin-top:12px}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage{min-height:380px}.stack-stage{min-height:350px}header{padding:22px 18px}.panel{padding:16px}svg{min-height:290px}.stack-info{grid-template-columns:1fr 1fr 1fr}}
 </style>
 </head>
 <body data-theme="light">
-<header><div class="wrap"><h1>Miller Indices Visualizer</h1><p>Explore crystal structures and rotate the unit cell directly in your browser.</p></div></header>
+<header><div class="wrap"><h1>Miller Indices Visualizer</h1><p>Explore crystal unit cells, rotate and zoom, and learn how atomic layers stack.</p></div></header>
 <main>
+<nav class="tabs" role="tablist" aria-label="Visualizer sections">
+<button class="tab" role="tab" id="tab-planes" aria-selected="true" aria-controls="panel-planes">Miller Planes</button>
+<button class="tab" role="tab" id="tab-stacking" aria-selected="false" aria-controls="panel-stacking">Stacking Explorer</button>
+</nav>
+<section id="panel-planes" class="tab-panel" role="tabpanel" aria-labelledby="tab-planes">
 <div class="layout">
-<section class="panel" aria-label="Visualization controls">
-<h2>Choose your plane</h2>
-<div class="indices">
+<section class="panel" aria-label="Miller plane controls">
+<h2>Choose your plane</h2><div class="indices">
 <div><label for="h">h</label><input id="h" type="number" min="0" max="4" step="1" value="1"></div>
 <div><label for="k">k</label><input id="k" type="number" min="0" max="4" step="1" value="1"></div>
-<div><label for="l">l</label><input id="l" type="number" min="0" max="4" step="1" value="1"></div>
-</div>
-<label for="structure">Crystal structure</label>
-<select id="structure">
-<option value="sc">Simple cubic (SC)</option>
-<option value="bcc">Body-centred cubic (BCC)</option>
-<option value="fcc">Face-centred cubic (FCC)</option>
-<option value="hcp">Hexagonal close-packed (HCP)</option>
+<div><label for="l">l</label><input id="l" type="number" min="0" max="4" step="1" value="1"></div></div>
+<label for="structure">Crystal structure</label><select id="structure">
+<option value="sc">Simple cubic (SC)</option><option value="bcc">Body-centred cubic (BCC)</option><option value="fcc">Face-centred cubic (FCC)</option><option value="hcp">Hexagonal close-packed (HCP)</option>
 </select>
 <div class="actions"><button class="primary" id="draw">Visualize plane</button><button id="reset">Reset view</button></div>
-<p class="note">Use whole-number indices from 0 to 4; they cannot all be zero. For HCP, this first version uses three entered indices for a simplified visual plane.</p>
-<div class="section-label">Display theme</div>
-<div class="themes" role="group" aria-label="Display theme">
-<button class="theme-btn" data-theme-choice="light" aria-pressed="true">☀ Light</button>
-<button class="theme-btn" data-theme-choice="dark" aria-pressed="false">☾ Dark</button>
-<button class="theme-btn" data-theme-choice="sepia" aria-pressed="false">▧ Sepia</button>
-</div>
-<div class="status" id="status" role="status">Showing plane (1 1 1). Drag the model to rotate it.</div>
+<p class="note">Use whole-number indices from 0 to 4; they cannot all be zero. HCP is shown as a hexagonal prism with its visible boundary and interior atoms.</p>
+<div class="section-label">Display theme</div><div class="themes" role="group" aria-label="Display theme">
+<button class="theme-btn" data-theme-choice="light" aria-pressed="true">☀ Light</button><button class="theme-btn" data-theme-choice="dark" aria-pressed="false">☾ Dark</button><button class="theme-btn" data-theme-choice="sepia" aria-pressed="false">▧ Sepia</button></div>
+<div class="section-label">Zoom</div><div class="zoom-actions"><button id="zoomOut" aria-label="Zoom out">− Zoom out</button><button id="zoomIn" aria-label="Zoom in">＋ Zoom in</button></div>
+<div class="status" id="status" role="status">Drag to rotate. Use zoom buttons or mouse wheel to zoom.</div>
 </section>
 <section class="panel stage">
-<div class="stage-head"><h2>Rotatable unit cell</h2><span class="pill" id="planeLabel">(1 1 1) plane</span></div>
-<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Rotatable crystal unit cell with highlighted plane"></svg>
-<div class="legend"><span><i class="dot" style="background:var(--atom)"></i>Atoms</span><span><i class="dot" style="background:var(--plane)"></i>Highlighted plane</span><span><i class="dot" style="background:var(--edge)"></i>Unit-cell edges</span></div>
-<p class="rotation-help">Rotate: click/touch and drag anywhere on the model. Use Reset view to return to the default angle.</p>
+<div class="stage-head"><h2>Rotatable crystal unit cell</h2><span class="pill" id="planeLabel">(1 1 1) plane</span></div>
+<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Rotatable crystal unit cell, coordinate axes, and highlighted plane"></svg>
+<div class="legend"><span><i class="dot" style="background:var(--atom)"></i>Atoms</span><span><i class="dot" style="background:var(--plane)"></i>Highlighted plane</span><span><i class="dot" style="background:var(--edge)"></i>Cell edges</span></div>
+<p class="rotation-help">Drag to rotate · Scroll or use zoom buttons to zoom · Coordinate axes are labelled x, y, z (HCP uses a, b, c).</p>
+</section></div></section>
+<section id="panel-stacking" class="tab-panel" role="tabpanel" aria-labelledby="tab-stacking" hidden>
+<div class="layout">
+<section class="panel"><h2>Explore atomic stacking</h2>
+<label for="stackType">Structure</label><select id="stackType"><option value="bcc">BCC — body-centred cubic</option><option value="fcc">FCC — face-centred cubic</option><option value="hcp">HCP — hexagonal close-packed</option></select>
+<label for="layerRange">Layer to inspect: <span id="layerNum">3</span></label><input id="layerRange" type="range" min="1" max="6" step="1" value="3">
+<div class="actions"><button id="prevLayer">← Previous layer</button><button id="nextLayer">Next layer →</button></div>
+<div class="status" id="stackStatus" role="status">FCC follows ABCABC stacking along a close-packed direction.</div>
+<div class="stack-info"><div><strong id="stackSequence">ABC</strong><span>Stacking sequence</span></div><div><strong id="stackLayerName">C</strong><span>Current layer</span></div><div><strong id="stackCount">6</strong><span>Layers shown</span></div></div>
+<p class="note">The layers are a teaching model. BCC is shown along [001] as corner/body-centred planes; FCC and HCP show close-packed layer positions.</p>
 </section>
-</div>
-<p class="footer">Version 2 · One standalone HTML file · No installation, downloads, packages, or server required</p>
+<section class="panel stage stack-stage"><div class="stage-head"><h2>Layer-by-layer view</h2><span class="pill" id="stackBadge">FCC · ABCABC</span></div>
+<svg id="stackScene" viewBox="0 0 640 440" role="img" aria-label="Crystal stacking sequence with layers of atoms"></svg>
+<div class="legend"><span><i class="dot" style="background:#2563eb"></i>A layer</span><span><i class="dot" style="background:#f59e0b"></i>B layer</span><span><i class="dot" style="background:#10b981"></i>C layer</span></div>
+<p class="rotation-help">Change the selected layer to see the stacking build up one layer at a time.</p>
+</section></div></section>
+<p class="footer">Version 3 · One standalone HTML file · No installation, external libraries, or server required</p>
 </main>
 <script>
 (function(){
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
-let rotX=-0.38,rotY=0.58,drag=null;
+let rotX=-.38,rotY=.58,zoom=1,drag=null;
+const atomColors={A:'#2563eb',B:'#f59e0b',C:'#10b981'};
 function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(parent)parent.appendChild(n);return n}
 function line(a,b,attrs,parent){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],...attrs},parent)}
 function rotate(p){let [x,y,z]=p;x-=.5;y-=.5;z-=.5;const cy=Math.cos(rotY),sy=Math.sin(rotY),cx=Math.cos(rotX),sx=Math.sin(rotX);const x1=x*cy-z*sy,z1=x*sy+z*cy,y1=y*cx-z1*sx,z2=y*sx+z1*cx;return [x1,y1,z2]}
-function project(p){const r=rotate(p),scale=170/(2.5-r[2]*.35);return [320+r[0]*scale,235+r[1]*scale]}
-function uniquePoints(points){const out=[];points.forEach(p=>{if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<1e-6))out.push(p)});return out}
-function getGeometry(type){
+function project(p){const r=rotate(p),scale=170*zoom/(2.5-r[2]*.35);return [320+r[0]*scale,235+r[1]*scale]}
+function uniq(points){const out=[];points.forEach(p=>{if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<1e-6))out.push(p)});return out}
+function geometry(type){
 if(type==='hcp'){
-const verts=[];for(let z of [0,1])for(let i=0;i<6;i++){const a=Math.PI/3*i;verts.push([.5+.5*Math.cos(a),.5+.5*Math.sin(a),z])}
-const edges=[];for(let i=0;i<6;i++){edges.push([i,(i+1)%6],[i+6,(i+1)%6+6],[i,i+6])}
-const atoms=verts.slice();atoms.push([.5,.5,.5],[.5+.25,.5+.433,.5],[.5-.25,.5+.433,.5]);
-return {verts,edges,atoms,planeVerts:verts,faces:[[0,1,2,3,4,5],[6,7,8,9,10,11]]}
+const verts=[];for(const z of [0,1])for(let i=0;i<6;i++){const a=Math.PI/3*i;verts.push([.5+.5*Math.cos(a),.5+.5*Math.sin(a),z])}
+const edges=[];for(let i=0;i<6;i++)edges.push([i,(i+1)%6],[i+6,(i+1)%6+6],[i,i+6]);
+const atoms=verts.slice();
+atoms.push([.5,.5,0],[.5,.5,1]);
+[[1/3,2/3],[2/3,1/3],[1/3,1/3]].forEach(([x,y])=>atoms.push([x,y,.5]));
+return {verts,edges,atoms,faces:[[0,1,2,3,4,5],[6,7,8,9,10,11]],axisLabels:['a','b','c']}
 }
-const verts=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
-const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
-let atoms=verts.slice();if(type==='bcc')atoms.push([.5,.5,.5]);if(type==='fcc')atoms.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
-return {verts,edges,atoms,planeVerts:verts,faces:[[0,1,2,3],[4,5,6,7]]}
+const v=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]],e=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]],a=v.slice();
+if(type==='bcc')a.push([.5,.5,.5]);
+if(type==='fcc')a.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
+return {verts:v,edges:e,atoms:a,faces:[],axisLabels:['x','y','z']}
 }
-function getPlanePoints(verts,edges,h,k,l){const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-1,fb=h*b[0]+k*b[1]+l*b[2]-1;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return uniquePoints(out)}
+function planePoints(verts,edges,h,k,l){const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-1,fb=h*b[0]+k*b[1]+l*b[2]-1;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return uniq(out)}
+function drawAxes(g,labels){const origin=[0,0,0],ends=[[1.25,0,0],[0,1.25,0],[0,0,1.25]],cols=['#e05252','#20a36b','#3982e4'];ends.forEach((p,i)=>{const a=project(origin),b=project(p);line(a,b,{stroke:cols[i],'stroke-width':3,'stroke-linecap':'round'},g);const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1;line([b[0]-dx/len*10-dy/len*5,b[1]-dy/len*10+dx/len*5],b,{stroke:cols[i],'stroke-width':3},g);line([b[0]-dx/len*10+dy/len*5,b[1]-dy/len*10-dx/len*5],b,{stroke:cols[i],'stroke-width':3},g);el('text',{x:b[0]+(dx>=0?8:-18),y:b[1]-8,fill:cols[i],'font-size':16,'font-weight':800},g).textContent=labels[i]})}
 function draw(){
 const h=Number($('h').value),k=Number($('k').value),l=Number($('l').value);
-if(![h,k,l].every(v=>Number.isInteger(v)&&v>=0&&v<=4)||h+k+l===0){$('status').textContent='Please enter whole numbers from 0 to 4, with at least one index above 0.';return}
-const type=$('structure').value,svg=$('scene');svg.replaceChildren();const g=el('g',{},svg),geo=getGeometry(type);
-geo.edges.forEach(([a,b])=>line(project(geo.verts[a]),project(geo.verts[b]),{stroke:'var(--edge)','stroke-width':2.2,'stroke-linecap':'round'},g));
-if(type==='hcp'){
-geo.faces.forEach(face=>el('polygon',{points:face.map(i=>project(geo.verts[i]).join(',')).join(' '),fill:'var(--edge)','fill-opacity':'.08',stroke:'none'},g));
+if(![h,k,l].every(v=>Number.isInteger(v)&&v>=0&&v<=4)||h+k+l===0){$('status').textContent='Enter whole numbers from 0 to 4; at least one must be greater than zero.';return}
+const type=$('structure').value,svg=$('scene');svg.replaceChildren();const g=el('g',{},svg),geo=geometry(type);
+if(type==='hcp')geo.faces.forEach(face=>el('polygon',{points:face.map(i=>project(geo.verts[i]).join(',')).join(' '),fill:'var(--edge)','fill-opacity':'.07',stroke:'none'},g));
+const pp=planePoints(geo.verts,geo.edges,h,k,l);
+if(pp.length>=3){const c=pp.reduce((a,p)=>a.map((v,i)=>v+p[i]/pp.length),[0,0,0]);pp.sort((a,b)=>{const A=project(a),B=project(b),C=project(c);return Math.atan2(A[1]-C[1],A[0]-C[0])-Math.atan2(B[1]-C[1],B[0]-C[0])});el('polygon',{points:pp.map(p=>project(p).join(',')).join(' '),fill:'var(--plane)','fill-opacity':'.4',stroke:'var(--plane)','stroke-width':2},g)}
+geo.edges.forEach(([a,b])=>line(project(geo.verts[a]),project(geo.verts[b]),{stroke:'var(--edge)','stroke-width':2.1},g));
+geo.atoms.forEach((p,i)=>{const q=project(p);el('circle',{cx:q[0],cy:q[1],r:type==='hcp'&&i>=12?8.5:(p.every(v=>v===.5)?9:7),fill:'var(--atom)',stroke:'var(--panel)','stroke-width':1.8},g)});
+drawAxes(g,geo.axisLabels);
+const names={sc:'Simple cubic',bcc:'Body-centred cubic',fcc:'Face-centred cubic',hcp:'Hexagonal close-packed'};
+$('planeLabel').textContent='('+h+' '+k+' '+l+') plane';$('status').textContent='Showing ('+h+' '+k+' '+l+') in '+names[type]+'. '+(type==='hcp'?'Boundary and interior HCP atom positions are displayed.':'Coordinate axes are shown.');}
+function resetView(){rotX=-.38;rotY=.58;zoom=1;$('h').value=1;$('k').value=1;$('l').value=1;$('structure').value='sc';draw()}
+$('draw').addEventListener('click',draw);$('structure').addEventListener('change',draw);$('reset').addEventListener('click',resetView);
+$('zoomIn').addEventListener('click',()=>{zoom=Math.min(2.4,zoom*1.15);draw()});$('zoomOut').addEventListener('click',()=>{zoom=Math.max(.55,zoom/1.15);draw()});
+document.querySelectorAll('[data-theme-choice]').forEach(btn=>btn.addEventListener('click',()=>{document.body.dataset.theme=btn.dataset.themeChoice;document.querySelectorAll('[data-theme-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)))}));
+const scene=$('scene');scene.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};scene.classList.add('dragging');scene.setPointerCapture(e.pointerId)});scene.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag={x:e.clientX,y:e.clientY};rotY+=dx*.012;rotX=Math.max(-1.45,Math.min(1.45,rotX+dy*.012));draw()});function stop(){drag=null;scene.classList.remove('dragging')}scene.addEventListener('pointerup',stop);scene.addEventListener('pointercancel',stop);scene.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.55,Math.min(2.4,zoom*(e.deltaY<0?1.08:.92)));draw()},{passive:false});
+document.querySelectorAll('[role=tab]').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('[role=tab]').forEach(t=>t.setAttribute('aria-selected',String(t===tab)));document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=p.id!==tab.getAttribute('aria-controls'))}));
+const stackSeq={bcc:['A','B','A','B','A','B'],fcc:['A','B','C','A','B','C'],hcp:['A','B','A','B','A','B']};
+function drawStack(){
+const type=$('stackType').value,n=Number($('layerRange').value),seq=stackSeq[type],svg=$('stackScene');svg.replaceChildren();const g=el('g',{},svg);
+const names={bcc:'BCC',fcc:'FCC',hcp:'HCP'},desc={bcc:'BCC has alternating corner-atom and body-centred planes along [001].',fcc:'FCC follows ABCABC stacking along a close-packed direction.',hcp:'HCP follows ABAB stacking: each new layer sits over alternating hollows.'};
+for(let layer=0;layer<n;layer++){const letter=seq[layer],z=layer*.62;let pts=[];
+if(type==='bcc'){if(letter==='A'){for(let x=-2;x<=2;x++)for(let y=-2;y<=2;y++)pts.push([x*.28,y*.28,z])}else{for(let x=-2;x<=2;x++)for(let y=-2;y<=2;y++)pts.push([x*.28+.14,y*.28+.14,z])}}
+else{const shift=letter==='A'?0:letter==='B'?1/3:2/3;for(let row=-2;row<=2;row++)for(let col=-2;col<=2;col++){const x=col*.3+row*.15+shift*.3,y=row*.26;pts.push([x,y,z])}}
+pts.forEach(p=>{const x=320+p[0]*155,y=370-p[1]*145-z*43;el('circle',{cx:x,cy:y,r:7.5,fill:atomColors[letter],stroke:'var(--panel)','stroke-width':1.5,opacity:layer===n-1?1:.62},g)});
+if(layer===n-1){el('text',{x:520,y:370-z*43,fill:atomColors[letter],'font-size':19,'font-weight':800},g).textContent='Layer '+(layer+1)+' · '+letter}
 }
-const pp=getPlanePoints(geo.verts,geo.edges,h,k,l);
-if(pp.length>=3){const center=pp.reduce((a,p)=>a.map((v,i)=>v+p[i]/pp.length),[0,0,0]);pp.sort((a,b)=>{const A=project(a),B=project(b),C=project(center);return Math.atan2(A[1]-C[1],A[0]-C[0])-Math.atan2(B[1]-C[1],B[0]-C[0])});el('polygon',{points:pp.map(p=>project(p).join(',')).join(' '),fill:'var(--plane)','fill-opacity':'.43',stroke:'var(--plane)','stroke-width':2.5},g)}
-geo.atoms.forEach(p=>{const q=project(p);el('circle',{cx:q[0],cy:q[1],r: p.every(v=>v===.5)?9:7,fill:'var(--atom)',stroke:'var(--panel)','stroke-width':2},g)});
-const names={sc:'Simple cubic (SC)',bcc:'Body-centred cubic (BCC)',fcc:'Face-centred cubic (FCC)',hcp:'Hexagonal close-packed (HCP)'};
-$('planeLabel').textContent='('+h+' '+k+' '+l+') plane';
-$('status').textContent='Showing plane ('+h+' '+k+' '+l+') in '+names[type]+'. Drag the model to rotate it.';
+for(let i=0;i<n;i++){const y=382-i*.62*43;line([72,y],[550,y],{stroke:'var(--edge)','stroke-width':1,'stroke-dasharray':'4 5',opacity:.45},g)}
+$('layerNum').textContent=n;$('stackSequence').textContent=seq.slice(0,n).join('');$('stackLayerName').textContent=seq[n-1];$('stackCount').textContent=n;$('stackBadge').textContent=names[type]+' · '+(type==='bcc'?'ABAB':type==='fcc'?'ABCABC':'ABAB');$('stackStatus').textContent=desc[type]+' Showing '+n+' of 6 layers.';
 }
-$('draw').addEventListener('click',draw);$('structure').addEventListener('change',draw);
-$('reset').addEventListener('click',()=>{rotX=-.38;rotY=.58;$('h').value=1;$('k').value=1;$('l').value=1;$('structure').value='sc';draw()});
-document.querySelectorAll('[data-theme-choice]').forEach(btn=>btn.addEventListener('click',()=>{const theme=btn.dataset.themeChoice;document.body.dataset.theme=theme;document.querySelectorAll('[data-theme-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)))}));
-const scene=$('scene');
-scene.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};scene.classList.add('dragging');scene.setPointerCapture(e.pointerId)});
-scene.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag={x:e.clientX,y:e.clientY};rotY+=dx*.012;rotX=Math.max(-1.45,Math.min(1.45,rotX+dy*.012));draw()});
-function stopDrag(){drag=null;scene.classList.remove('dragging')}
-scene.addEventListener('pointerup',stopDrag);scene.addEventListener('pointercancel',stopDrag);draw();
+$('stackType').addEventListener('change',()=>{const n=$('stackType').value==='fcc'?3:3;$('layerRange').value=n;drawStack()});$('layerRange').addEventListener('input',drawStack);$('prevLayer').addEventListener('click',()=>{$('layerRange').value=Math.max(1,Number($('layerRange').value)-1);drawStack()});$('nextLayer').addEventListener('click',()=>{$('layerRange').value=Math.min(6,Number($('layerRange').value)+1);drawStack()});
+draw();drawStack();
 })();
 </script>
 </body>
