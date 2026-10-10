@@ -1,23 +1,26 @@
-# Miller Indices Visualizer — v2
+# Miller Indices Visualizer — v3
 
-A small, standalone browser app for exploring crystal unit cells and Miller planes.
+A simple, standalone browser app for exploring crystal structures, Miller planes, and atomic stacking.
 
 ## Run it
 
-Open `index.html` in a modern web browser. That's all: no installation, dependencies, downloads, build step, or server needed.
+Open `index.html` in a modern browser. No installation, external libraries, downloads, build step, or server is required.
 
-## Version 2 features
+## Version 3 features
 
-- Simple Cubic (SC), Body-Centred Cubic (BCC), Face-Centred Cubic (FCC), and a simplified Hexagonal Close-Packed (HCP) structure
-- Drag the model with a mouse or touch to rotate the view
-- Light, Dark, and Sepia display themes, directly above the visual area controls
-- Miller-index inputs, plane highlighting, and reset view
+- Simple Cubic (SC), Body-Centred Cubic (BCC), Face-Centred Cubic (FCC), and Hexagonal Close-Packed (HCP) views
+- Visible coordinate axes, with a/b/c labels for HCP and x/y/z for cubic cells
+- Drag to rotate the crystal
+- Zoom in/out buttons and mouse-wheel zoom
+- Light, Dark, and Sepia themes
+- Separate **Miller Planes** and **Stacking Explorer** tabs in the same HTML file
+- Layer-by-layer teaching views for BCC, FCC, and HCP stacking
 - Responsive layout for desktop and mobile
 
-## Notes
+## Scientific notes
 
-This is an educational geometric visualization, not a crystallographic simulation. The model is a rotatable 3D projection built with inline SVG and JavaScript. HCP is represented as a simplified hexagonal cell and the entered three-index plane display is illustrative rather than a full four-index Miller–Bravais HCP treatment. These details can be refined in later versions.
+This is a lightweight educational illustration rather than a full crystallographic simulation. The HCP cell includes visible top and bottom boundary sites and middle-layer interior sites. Its Miller-plane input remains a simplified three-index illustration; proper HCP crystallography commonly uses four-index Miller–Bravais notation. The stacking tab illustrates BCC alternating planes and the close-packed FCC (ABCABC) and HCP (ABAB) sequences.
 
 ## File
 
-- `index.html` — the complete app, including HTML, CSS, and JavaScript.
+- `index.html` — the complete app with all HTML, CSS, and JavaScript included.
