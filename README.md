@@ -1,28 +1,23 @@
-# Miller Indices Visualizer — v1
+# Miller Indices Visualizer — v2
 
-A small, browser-only learning tool for visualizing Miller planes in a crystal unit cell.
+A small, standalone browser app for exploring crystal unit cells and Miller planes.
 
 ## Run it
 
-No installation, packages, build step, or server required.
+Open `index.html` in a modern web browser. That's all: no installation, dependencies, downloads, build step, or server needed.
 
-1. Open `index.html` in any modern browser.
-2. Enter the Miller indices `h`, `k`, and `l` (whole numbers from 0 to 4; not all zero).
-3. Choose Simple Cubic, Body-Centred Cubic, or Face-Centred Cubic.
-4. Select **Visualize plane**.
+## Version 2 features
 
-## What's included in version 1
-
-- A projected 3D unit-cell illustration
-- Highlighted plane for the selected Miller indices
-- Simple Cubic, BCC, and FCC atom positions
-- Reset button and basic input validation
+- Simple Cubic (SC), Body-Centred Cubic (BCC), Face-Centred Cubic (FCC), and a simplified Hexagonal Close-Packed (HCP) structure
+- Drag the model with a mouse or touch to rotate the view
+- Light, Dark, and Sepia display themes, directly above the visual area controls
+- Miller-index inputs, plane highlighting, and reset view
 - Responsive layout for desktop and mobile
 
 ## Notes
 
-This is an intentionally simple first version. The unit cell is a 2D projection of a 3D model, not a fully rotatable 3D scene. The plane drawing is a geometric teaching illustration. We can add rotation, crystallographic directions, clearer intercept explanations, or other learning features in later versions.
+This is an educational geometric visualization, not a crystallographic simulation. The model is a rotatable 3D projection built with inline SVG and JavaScript. HCP is represented as a simplified hexagonal cell and the entered three-index plane display is illustrative rather than a full four-index Miller–Bravais HCP treatment. These details can be refined in later versions.
 
-## Files
+## File
 
-- `index.html` — the complete application; CSS and JavaScript are included in the file.
+- `index.html` — the complete app, including HTML, CSS, and JavaScript.
