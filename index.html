@@ -2,122 +2,157 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miller Indices Visualizer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrystalLab — Miller Indices & Stacking Explorer</title>
 <style>
-:root{--bg:#f3f6fb;--panel:#fff;--ink:#182338;--muted:#63718a;--line:#d8e0ed;--blue:#2563eb;--soft:#eaf0fb;--stage:#f8fbff;--edge:#94a3b8;--atom:#2563eb;--plane:#f59e0b;--status:#eff4fa}
-body[data-theme="dark"]{--bg:#0d1422;--panel:#151f31;--ink:#edf3ff;--muted:#a6b3c9;--line:#2c3a50;--blue:#78a7ff;--soft:#22324b;--stage:#101a2a;--edge:#7587a4;--atom:#78a7ff;--plane:#ffc15c;--status:#202d42;color-scheme:dark}
-body[data-theme="sepia"]{--bg:#f1e6d2;--panel:#fbf2e3;--ink:#493725;--muted:#806c54;--line:#ddc9aa;--blue:#94652b;--soft:#ead9bd;--stage:#f7ecd9;--edge:#b9a58a;--atom:#557b9c;--plane:#c47b2a;--status:#efe1ca;color-scheme:light}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;transition:background .18s,color .18s}
-header{background:#101d36;color:#fff;padding:25px 20px}header .wrap,main{max-width:1160px;margin:auto}h1{font-size:clamp(1.7rem,4vw,2.3rem);margin:0;letter-spacing:-.03em}header p{margin:5px 0 0;color:#c7d3e8}main{padding:20px 16px 36px}.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}.tab{background:var(--panel);border:1px solid var(--line);padding:10px 16px}.tab[aria-selected="true"]{background:var(--blue);color:white;border-color:var(--blue)}.tab-panel[hidden]{display:none}.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 14px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}input[type=range]{padding:0;accent-color:var(--blue)}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions,.themes,.zoom-actions{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}button{border:1px solid transparent;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;background:var(--soft);color:var(--ink)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:var(--blue);color:#fff}.theme-btn{flex:1;min-width:72px;border-color:var(--line)}.theme-btn[aria-pressed="true"]{outline:2px solid var(--blue);outline-offset:1px}.note,.rotation-help{font-size:.83rem;color:var(--muted);margin:11px 0 0}.section-label{font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}.stage{min-height:530px;display:flex;flex-direction:column;background:var(--panel)}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:var(--soft);color:var(--blue);padding:4px 9px;border-radius:99px;font-weight:750}svg{display:block;width:100%;height:auto;max-height:510px;flex:1;min-height:330px;background:var(--stage);border-radius:12px;touch-action:none;cursor:grab;margin-top:12px}svg.dragging{cursor:grabbing}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:10px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:var(--status);border-radius:10px;font-size:.9rem;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}.zoom-actions button{flex:1}.stack-info{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stack-info>div{padding:10px;border-radius:10px;background:var(--status)}.stack-info strong{display:block;font-size:1.05rem}.stack-info span{font-size:.78rem;color:var(--muted)}.stack-controls{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.stack-controls label{margin-top:8px}.stack-stage{min-height:440px}.stack-key{font-size:.9rem;color:var(--muted);margin-top:12px}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage{min-height:380px}.stack-stage{min-height:350px}header{padding:22px 18px}.panel{padding:16px}svg{min-height:290px}.stack-info{grid-template-columns:1fr 1fr 1fr}}
+:root{--bg:#f3f6fb;--panel:#fff;--ink:#182338;--muted:#63718a;--line:#d8e0ed;--blue:#2563eb;--soft:#eaf0fb;--stage:#f8fbff;--edge:#9aa8bc;--atom:#377dca;--plane:#f59e0b;--direction:#e05252;--status:#eff4fa}
+body[data-theme="dark"]{--bg:#0d1422;--panel:#151f31;--ink:#edf3ff;--muted:#a6b3c9;--line:#2c3a50;--blue:#78a7ff;--soft:#22324b;--stage:#101a2a;--edge:#7587a4;--atom:#78a7ff;--plane:#ffc15c;--direction:#ff8181;--status:#202d42;color-scheme:dark}
+body[data-theme="sepia"]{--bg:#f1e6d2;--panel:#fbf2e3;--ink:#493725;--muted:#806c54;--line:#ddc9aa;--blue:#94652b;--soft:#ead9bd;--stage:#f7ecd9;--edge:#b9a58a;--atom:#557b9c;--plane:#c47b2a;--direction:#b94c4c;--status:#efe1ca;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}header{background:#101d36;color:white;padding:24px 20px}header .wrap,main{max-width:1200px;margin:auto}h1{font-size:clamp(1.65rem,4vw,2.25rem);margin:0;letter-spacing:-.03em}header p{margin:5px 0 0;color:#c7d3e8}main{padding:20px 16px 36px}.tabs,.mode-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab,.mode-btn{background:var(--panel);border:1px solid var(--line);padding:10px 15px}.tab[aria-selected=true],.mode-btn[aria-pressed=true]{background:var(--blue);color:white;border-color:var(--blue)}.tab-panel[hidden],.mode-panel[hidden]{display:none}.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 5px 18px #16213a08}h2{font-size:1.05rem;margin:0 0 12px}label{display:block;font-size:.9rem;font-weight:650;margin:12px 0 6px}input,select,button{font:inherit}input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}input[type=range]{padding:0;accent-color:var(--blue)}button{border:1px solid transparent;border-radius:9px;padding:8px 11px;cursor:pointer;font-weight:700;background:var(--soft);color:var(--ink)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:var(--blue);color:white}.indices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.indices label{margin-top:4px}.actions,.themes,.zoom-actions,.rotate-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}.actions button,.zoom-actions button,.rotate-actions button{flex:1}.section-label{font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:17px 0 4px}.theme-btn{flex:1;min-width:65px;border-color:var(--line)}.theme-btn[aria-pressed=true]{outline:2px solid var(--blue);outline-offset:1px}.note,.help{font-size:.82rem;color:var(--muted);margin:10px 0 0}.stage{min-height:520px;display:flex;flex-direction:column}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stage-head h2{margin:0}.pill{font-size:.78rem;background:var(--soft);color:var(--blue);padding:4px 9px;border-radius:99px;font-weight:750}svg{display:block;width:100%;height:auto;max-height:530px;flex:1;min-height:340px;background:var(--stage);border-radius:12px;touch-action:none;cursor:grab;margin-top:12px}svg.dragging{cursor:grabbing}.legend{display:flex;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:.83rem;margin-top:10px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}.status{margin-top:12px;padding:10px 12px;background:var(--status);border-radius:10px;font-size:.88rem;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding-top:20px}.stack-stage{min-height:500px}.stack-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.stack-stats>div{padding:10px;border-radius:10px;background:var(--status)}.stack-stats strong{display:block}.stack-stats span{font-size:.78rem;color:var(--muted)}@media(max-width:760px){.layout{grid-template-columns:1fr}.stage,.stack-stage{min-height:380px}header{padding:20px 17px}.panel{padding:15px}svg{min-height:290px}}
 </style>
 </head>
 <body data-theme="light">
-<header><div class="wrap"><h1>Miller Indices Visualizer</h1><p>Explore crystal unit cells, rotate and zoom, and learn how atomic layers stack.</p></div></header>
+<header><div class="wrap"><h1>CrystalLab</h1><p>Interactive crystallography: Miller planes, directions, atomic structures and stacking.</p></div></header>
 <main>
 <nav class="tabs" role="tablist" aria-label="Visualizer sections">
-<button class="tab" role="tab" id="tab-planes" aria-selected="true" aria-controls="panel-planes">Miller Planes</button>
-<button class="tab" role="tab" id="tab-stacking" aria-selected="false" aria-controls="panel-stacking">Stacking Explorer</button>
+<button class="tab" role="tab" id="tab-miller" aria-selected="true" aria-controls="panel-miller">Miller Indices</button>
+<button class="tab" role="tab" id="tab-stack" aria-selected="false" aria-controls="panel-stack">3D Stacking Explorer</button>
 </nav>
-<section id="panel-planes" class="tab-panel" role="tabpanel" aria-labelledby="tab-planes">
+<section id="panel-miller" class="tab-panel" role="tabpanel" aria-labelledby="tab-miller">
 <div class="layout">
-<section class="panel" aria-label="Miller plane controls">
-<h2>Choose your plane</h2><div class="indices">
-<div><label for="h">h</label><input id="h" type="number" min="0" max="4" step="1" value="1"></div>
-<div><label for="k">k</label><input id="k" type="number" min="0" max="4" step="1" value="1"></div>
-<div><label for="l">l</label><input id="l" type="number" min="0" max="4" step="1" value="1"></div></div>
-<label for="structure">Crystal structure</label><select id="structure">
-<option value="sc">Simple cubic (SC)</option><option value="bcc">Body-centred cubic (BCC)</option><option value="fcc">Face-centred cubic (FCC)</option><option value="hcp">Hexagonal close-packed (HCP)</option>
-</select>
-<div class="actions"><button class="primary" id="draw">Visualize plane</button><button id="reset">Reset view</button></div>
-<p class="note">Use whole-number indices from 0 to 4; they cannot all be zero. HCP is shown as a hexagonal prism with its visible boundary and interior atoms.</p>
-<div class="section-label">Display theme</div><div class="themes" role="group" aria-label="Display theme">
-<button class="theme-btn" data-theme-choice="light" aria-pressed="true">☀ Light</button><button class="theme-btn" data-theme-choice="dark" aria-pressed="false">☾ Dark</button><button class="theme-btn" data-theme-choice="sepia" aria-pressed="false">▧ Sepia</button></div>
-<div class="section-label">Zoom</div><div class="zoom-actions"><button id="zoomOut" aria-label="Zoom out">− Zoom out</button><button id="zoomIn" aria-label="Zoom in">＋ Zoom in</button></div>
-<div class="status" id="status" role="status">Drag to rotate. Use zoom buttons or mouse wheel to zoom.</div>
+<section class="panel">
+<h2>Crystallographic view</h2>
+<div class="mode-tabs" role="group" aria-label="Choose planes or directions">
+<button class="mode-btn" id="mode-plane" aria-pressed="true">Planes (hkl)</button><button class="mode-btn" id="mode-direction" aria-pressed="false">Directions [uvw]</button>
+</div>
+<div id="plane-controls" class="mode-panel">
+<p class="note">Enter plane indices. A zero means the plane is parallel to that axis. Negative indices are allowed.</p>
+<div class="indices"><div><label for="h">h</label><input id="h" type="number" min="-4" max="4" step="1" value="1"></div><div><label for="k">k</label><input id="k" type="number" min="-4" max="4" step="1" value="1"></div><div><label for="l">l</label><input id="l" type="number" min="-4" max="4" step="1" value="1"></div></div>
+</div>
+<div id="direction-controls" class="mode-panel" hidden>
+<p class="note">Enter a direction vector. The red arrow shows [uvw] through the unit cell.</p>
+<div class="indices"><div><label for="u">u</label><input id="u" type="number" min="-4" max="4" step="1" value="1"></div><div><label for="v">v</label><input id="v" type="number" min="-4" max="4" step="1" value="1"></div><div><label for="w">w</label><input id="w" type="number" min="-4" max="4" step="1" value="1"></div></div>
+</div>
+<label for="structure">Crystal structure</label><select id="structure"><option value="sc">Simple cubic (SC)</option><option value="bcc">Body-centred cubic (BCC)</option><option value="fcc">Face-centred cubic (FCC)</option><option value="hcp">Hexagonal close-packed (HCP)</option></select>
+<div class="actions"><button class="primary" id="visualize">Update view</button><button id="reset-crystal">Reset crystal</button></div>
+<div class="section-label">Camera</div><div class="zoom-actions"><button id="zoom-out">− Zoom out</button><button id="zoom-in">＋ Zoom in</button><button id="reset-view">Reset view</button></div>
+<div class="section-label">Rotate by 15°</div><div class="rotate-actions"><button data-rotate="x">Rotate X</button><button data-rotate="y">Rotate Y</button><button data-rotate="z">Rotate Z</button></div>
+<div class="section-label">Display theme</div><div class="themes" role="group" aria-label="Display theme"><button class="theme-btn" data-theme-choice="light" aria-pressed="true">☀ Light</button><button class="theme-btn" data-theme-choice="dark" aria-pressed="false">☾ Dark</button><button class="theme-btn" data-theme-choice="sepia" aria-pressed="false">▧ Sepia</button></div>
+<div class="status" id="status" role="status">Drag the crystal to rotate. Scroll or use zoom controls to zoom.</div>
 </section>
 <section class="panel stage">
-<div class="stage-head"><h2>Rotatable crystal unit cell</h2><span class="pill" id="planeLabel">(1 1 1) plane</span></div>
-<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Rotatable crystal unit cell, coordinate axes, and highlighted plane"></svg>
-<div class="legend"><span><i class="dot" style="background:var(--atom)"></i>Atoms</span><span><i class="dot" style="background:var(--plane)"></i>Highlighted plane</span><span><i class="dot" style="background:var(--edge)"></i>Cell edges</span></div>
-<p class="rotation-help">Drag to rotate · Scroll or use zoom buttons to zoom · Coordinate axes are labelled x, y, z (HCP uses a, b, c).</p>
+<div class="stage-head"><h2 id="main-scene-title">3D crystal unit cell</h2><span class="pill" id="main-label">(111) plane</span></div>
+<svg id="scene" viewBox="0 0 640 470" role="img" aria-label="Rotatable 3D crystal with atoms and crystallographic overlay"></svg>
+<div class="legend"><span><i class="dot" style="background:var(--atom)"></i>Atoms</span><span><i class="dot" style="background:var(--plane)"></i>Plane</span><span><i class="dot" style="background:var(--direction)"></i>Direction</span><span><i class="dot" style="background:var(--edge)"></i>Cell edges</span></div>
+<p class="help">Drag to orbit in 3D · Wheel or buttons to zoom · Use X/Y/Z controls for precise rotation. Reset View changes only the camera; Reset Crystal restores the original structure and indices.</p>
 </section></div></section>
-<section id="panel-stacking" class="tab-panel" role="tabpanel" aria-labelledby="tab-stacking" hidden>
+<section id="panel-stack" class="tab-panel" role="tabpanel" aria-labelledby="tab-stack" hidden>
 <div class="layout">
-<section class="panel"><h2>Explore atomic stacking</h2>
-<label for="stackType">Structure</label><select id="stackType"><option value="bcc">BCC — body-centred cubic</option><option value="fcc">FCC — face-centred cubic</option><option value="hcp">HCP — hexagonal close-packed</option></select>
-<label for="layerRange">Layer to inspect: <span id="layerNum">3</span></label><input id="layerRange" type="range" min="1" max="6" step="1" value="3">
-<div class="actions"><button id="prevLayer">← Previous layer</button><button id="nextLayer">Next layer →</button></div>
-<div class="status" id="stackStatus" role="status">FCC follows ABCABC stacking along a close-packed direction.</div>
-<div class="stack-info"><div><strong id="stackSequence">ABC</strong><span>Stacking sequence</span></div><div><strong id="stackLayerName">C</strong><span>Current layer</span></div><div><strong id="stackCount">6</strong><span>Layers shown</span></div></div>
-<p class="note">The layers are a teaching model. BCC is shown along [001] as corner/body-centred planes; FCC and HCP show close-packed layer positions.</p>
+<section class="panel">
+<h2>Build a 3D stack</h2>
+<label for="stackType">Crystal structure</label><select id="stackType"><option value="bcc">BCC — body-centred cubic</option><option value="fcc">FCC — face-centred cubic</option><option value="hcp">HCP — hexagonal close-packed</option></select>
+<label for="layerRange">Number of layers: <span id="layerNum">4</span></label><input id="layerRange" type="range" min="1" max="8" step="1" value="4">
+<div class="actions"><button id="stack-minus">− One layer</button><button id="stack-plus">+ One layer</button></div>
+<div class="section-label">Camera</div><div class="zoom-actions"><button id="stack-zoom-out">− Zoom out</button><button id="stack-zoom-in">＋ Zoom in</button><button id="stack-reset">Reset view</button></div>
+<div class="section-label">Rotate by 15°</div><div class="rotate-actions"><button data-stack-rotate="x">Rotate X</button><button data-stack-rotate="y">Rotate Y</button><button data-stack-rotate="z">Rotate Z</button></div>
+<div class="stack-stats"><div><strong id="stack-sequence">ABAB</strong><span>Layer sequence shown</span></div><div><strong id="stack-current">4 layers</strong><span>3D stack depth</span></div></div>
+<div class="status" id="stackStatus" role="status">Atoms are placed in 3D coordinates. Drag to orbit the structure.</div>
+<p class="note">FCC and HCP are illustrated as close-packed triangular layers. BCC shows alternating square layers with the half-cell offset characteristic of body-centred packing.</p>
 </section>
-<section class="panel stage stack-stage"><div class="stage-head"><h2>Layer-by-layer view</h2><span class="pill" id="stackBadge">FCC · ABCABC</span></div>
-<svg id="stackScene" viewBox="0 0 640 440" role="img" aria-label="Crystal stacking sequence with layers of atoms"></svg>
-<div class="legend"><span><i class="dot" style="background:#2563eb"></i>A layer</span><span><i class="dot" style="background:#f59e0b"></i>B layer</span><span><i class="dot" style="background:#10b981"></i>C layer</span></div>
-<p class="rotation-help">Change the selected layer to see the stacking build up one layer at a time.</p>
+<section class="panel stage stack-stage"><div class="stage-head"><h2>3D atomic stacking</h2><span class="pill" id="stackBadge">BCC · ABAB</span></div>
+<svg id="stackScene" viewBox="0 0 640 470" role="img" aria-label="Rotatable three-dimensional crystal stacking structure with spherical atoms"></svg>
+<div class="legend"><span><i class="dot" style="background:#2563eb"></i>A layer</span><span><i class="dot" style="background:#f59e0b"></i>B layer</span><span><i class="dot" style="background:#10b981"></i>C layer</span><span><i class="dot" style="background:var(--edge)"></i>Cell / layer guides</span></div>
+<p class="help">Drag to rotate in 3D · Scroll or zoom buttons to inspect the atom arrangement from any side.</p>
 </section></div></section>
-<p class="footer">Version 3 · One standalone HTML file · No installation, external libraries, or server required</p>
+<p class="footer">Single-file educational visualizer · Open index.html directly in a browser · No installation or build step</p>
 </main>
 <script>
 (function(){
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
-let rotX=-.38,rotY=.58,zoom=1,drag=null;
 const atomColors={A:'#2563eb',B:'#f59e0b',C:'#10b981'};
+const camera={x:-.42,y:.58,z:0,zoom:1},stackCamera={x:-.48,y:.65,z:0,zoom:1};
+let mode='plane',drag=null,stackDrag=null;
 function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(parent)parent.appendChild(n);return n}
 function line(a,b,attrs,parent){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],...attrs},parent)}
-function rotate(p){let [x,y,z]=p;x-=.5;y-=.5;z-=.5;const cy=Math.cos(rotY),sy=Math.sin(rotY),cx=Math.cos(rotX),sx=Math.sin(rotX);const x1=x*cy-z*sy,z1=x*sy+z*cy,y1=y*cx-z1*sx,z2=y*sx+z1*cx;return [x1,y1,z2]}
-function project(p){const r=rotate(p),scale=170*zoom/(2.5-r[2]*.35);return [320+r[0]*scale,235+r[1]*scale]}
-function uniq(points){const out=[];points.forEach(p=>{if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<1e-6))out.push(p)});return out}
-function geometry(type){
+function rotate(p,cam){let [x,y,z]=p;let c=Math.cos(cam.z),s=Math.sin(cam.z);[x,y]=[x*c-y*s,x*s+y*c];c=Math.cos(cam.y);s=Math.sin(cam.y);[x,z]=[x*c+z*s,-x*s+z*c];c=Math.cos(cam.x);s=Math.sin(cam.x);[y,z]=[y*c-z*s,y*s+z*c];return [x,y,z]}
+function project(p,cam,cx=320,cy=235,base=170){const r=rotate(p,cam),scale=base*cam.zoom/(2.9-r[2]*.30);return [cx+r[0]*scale,cy-r[1]*scale,r[2]]}
+function unique(points){const out=[];points.forEach(p=>{if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<1e-6))out.push(p)});return out}
+function cubeGeometry(type){
 if(type==='hcp'){
 const verts=[];for(const z of [0,1])for(let i=0;i<6;i++){const a=Math.PI/3*i;verts.push([.5+.5*Math.cos(a),.5+.5*Math.sin(a),z])}
 const edges=[];for(let i=0;i<6;i++)edges.push([i,(i+1)%6],[i+6,(i+1)%6+6],[i,i+6]);
-const atoms=verts.slice();
-atoms.push([.5,.5,0],[.5,.5,1]);
-[[1/3,2/3],[2/3,1/3],[1/3,1/3]].forEach(([x,y])=>atoms.push([x,y,.5]));
-return {verts,edges,atoms,faces:[[0,1,2,3,4,5],[6,7,8,9,10,11]],axisLabels:['a','b','c']}
+const atoms=verts.slice();atoms.push([.5,.5,0],[.5,.5,1]);[[1/3,2/3],[2/3,1/3],[1/3,1/3]].forEach(([x,y])=>atoms.push([x,y,.5]));
+return {verts,edges,atoms,faces:[[0,1,2,3,4,5],[6,7,8,9,10,11]],labels:['a','b','c']}
 }
 const v=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]],e=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]],a=v.slice();
-if(type==='bcc')a.push([.5,.5,.5]);
-if(type==='fcc')a.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
-return {verts:v,edges:e,atoms:a,faces:[],axisLabels:['x','y','z']}
+if(type==='bcc')a.push([.5,.5,.5]);if(type==='fcc')a.push([.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]);
+return {verts:v,edges:e,atoms:a,faces:[],labels:['x','y','z']}
 }
-function planePoints(verts,edges,h,k,l){const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-1,fb=h*b[0]+k*b[1]+l*b[2]-1;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return uniq(out)}
-function drawAxes(g,labels){const origin=[0,0,0],ends=[[1.25,0,0],[0,1.25,0],[0,0,1.25]],cols=['#e05252','#20a36b','#3982e4'];ends.forEach((p,i)=>{const a=project(origin),b=project(p);line(a,b,{stroke:cols[i],'stroke-width':3,'stroke-linecap':'round'},g);const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1;line([b[0]-dx/len*10-dy/len*5,b[1]-dy/len*10+dx/len*5],b,{stroke:cols[i],'stroke-width':3},g);line([b[0]-dx/len*10+dy/len*5,b[1]-dy/len*10-dx/len*5],b,{stroke:cols[i],'stroke-width':3},g);el('text',{x:b[0]+(dx>=0?8:-18),y:b[1]-8,fill:cols[i],'font-size':16,'font-weight':800},g).textContent=labels[i]})}
-function draw(){
-const h=Number($('h').value),k=Number($('k').value),l=Number($('l').value);
-if(![h,k,l].every(v=>Number.isInteger(v)&&v>=0&&v<=4)||h+k+l===0){$('status').textContent='Enter whole numbers from 0 to 4; at least one must be greater than zero.';return}
-const type=$('structure').value,svg=$('scene');svg.replaceChildren();const g=el('g',{},svg),geo=geometry(type);
-if(type==='hcp')geo.faces.forEach(face=>el('polygon',{points:face.map(i=>project(geo.verts[i]).join(',')).join(' '),fill:'var(--edge)','fill-opacity':'.07',stroke:'none'},g));
-const pp=planePoints(geo.verts,geo.edges,h,k,l);
-if(pp.length>=3){const c=pp.reduce((a,p)=>a.map((v,i)=>v+p[i]/pp.length),[0,0,0]);pp.sort((a,b)=>{const A=project(a),B=project(b),C=project(c);return Math.atan2(A[1]-C[1],A[0]-C[0])-Math.atan2(B[1]-C[1],B[0]-C[0])});el('polygon',{points:pp.map(p=>project(p).join(',')).join(' '),fill:'var(--plane)','fill-opacity':'.4',stroke:'var(--plane)','stroke-width':2},g)}
-geo.edges.forEach(([a,b])=>line(project(geo.verts[a]),project(geo.verts[b]),{stroke:'var(--edge)','stroke-width':2.1},g));
-geo.atoms.forEach((p,i)=>{const q=project(p);el('circle',{cx:q[0],cy:q[1],r:type==='hcp'&&i>=12?8.5:(p.every(v=>v===.5)?9:7),fill:'var(--atom)',stroke:'var(--panel)','stroke-width':1.8},g)});
-drawAxes(g,geo.axisLabels);
-const names={sc:'Simple cubic',bcc:'Body-centred cubic',fcc:'Face-centred cubic',hcp:'Hexagonal close-packed'};
-$('planeLabel').textContent='('+h+' '+k+' '+l+') plane';$('status').textContent='Showing ('+h+' '+k+' '+l+') in '+names[type]+'. '+(type==='hcp'?'Boundary and interior HCP atom positions are displayed.':'Coordinate axes are shown.');}
-function resetView(){rotX=-.38;rotY=.58;zoom=1;$('h').value=1;$('k').value=1;$('l').value=1;$('structure').value='sc';draw()}
-$('draw').addEventListener('click',draw);$('structure').addEventListener('change',draw);$('reset').addEventListener('click',resetView);
-$('zoomIn').addEventListener('click',()=>{zoom=Math.min(2.4,zoom*1.15);draw()});$('zoomOut').addEventListener('click',()=>{zoom=Math.max(.55,zoom/1.15);draw()});
+function centered(p){return [p[0]-.5,p[1]-.5,p[2]-.5]}
+function planePolygon(verts,edges,h,k,l){
+const vals=verts.map(p=>h*p[0]+k*p[1]+l*p[2]);const min=Math.min(...vals),max=Math.max(...vals);let d=1;if(d<min||d>max)d=(min+max)/2;
+const out=[];edges.forEach(([ia,ib])=>{const a=verts[ia],b=verts[ib],fa=h*a[0]+k*a[1]+l*a[2]-d,fb=h*b[0]+k*b[1]+l*b[2]-d;if(Math.abs(fa)<1e-8)out.push(a);if(Math.abs(fb)<1e-8)out.push(b);if(fa*fb<0){const t=fa/(fa-fb);out.push(a.map((v,i)=>v+t*(b[i]-v)))}});return unique(out)
+}
+function sortedPoly(points,cam){if(points.length<3)return points;const c=points.reduce((a,p)=>a.map((v,i)=>v+p[i]/points.length),[0,0,0]);const normal=rotate([1,1,1],cam);return points.slice().sort((a,b)=>{const A=project(centered(a),cam),B=project(centered(b),cam),C=project(centered(c),cam);return Math.atan2(A[1]-C[1],A[0]-C[0])-Math.atan2(B[1]-C[1],B[0]-C[0])})}
+function drawSphere(parent,xy,r,fill,opacity=1){const g=el('g',{opacity},parent);el('circle',{cx:xy[0],cy:xy[1],r:r,fill:fill,stroke:'#ffffff','stroke-opacity':'.62','stroke-width':1.1},g);el('circle',{cx:xy[0]-r*.28,cy:xy[1]-r*.32,r:r*.28,fill:'#ffffff','fill-opacity':'.52'},g)}
+function drawAxes(parent,cam,labels,projectFn){const o=projectFn([0,0,0]),ends=[[1.25,0,0],[0,1.25,0],[0,0,1.25]],cols=['#e05252','#20a36b','#3982e4'];ends.forEach((p,i)=>{const b=projectFn(p);line(o,b,{stroke:cols[i],'stroke-width':2.7,'stroke-linecap':'round'},parent);const dx=b[0]-o[0],dy=b[1]-o[1],len=Math.hypot(dx,dy)||1;line([b[0]-dx/len*9-dy/len*4,b[1]-dy/len*9+dx/len*4],b,{stroke:cols[i],'stroke-width':2.7},parent);line([b[0]-dx/len*9+dy/len*4,b[1]-dy/len*9-dx/len*4],b,{stroke:cols[i],'stroke-width':2.7},parent);el('text',{x:b[0]+(dx>=0?7:-15),y:b[1]-7,fill:cols[i],'font-size':15,'font-weight':800},parent).textContent=labels[i]})}
+function drawMain(){
+const svg=$('scene');svg.replaceChildren();const g=el('g',{},svg),type=$('structure').value,geo=cubeGeometry(type),cam=camera;
+const proj=p=>project(p,cam);
+if(type==='hcp')geo.faces.forEach(face=>el('polygon',{points:face.map(i=>proj(centered(geo.verts[i])).slice(0,2).join(',')).join(' '),fill:'var(--edge)','fill-opacity':'.07',stroke:'none'},g));
+if(mode==='plane'){
+const h=+$('h').value,k=+$('k').value,l=+$('l').value,pp=planePolygon(geo.verts,geo.edges,h,k,l);
+if(pp.length>=3){const sorted=sortedPoly(pp,cam);el('polygon',{points:sorted.map(p=>proj(centered(p)).slice(0,2).join(',')).join(' '),fill:'var(--plane)','fill-opacity':'.43',stroke:'var(--plane)','stroke-width':2},g)}
+}else{
+const u=+$('u').value,v=+$('v').value,w=+$('w').value;const mag=Math.max(Math.abs(u),Math.abs(v),Math.abs(w),1);const start=[-.5-.5*u/mag,-.5-.5*v/mag,-.5-.5*w/mag],end=[.5+.5*u/mag,.5+.5*v/mag,.5+.5*w/mag];const a=proj(start),b=proj(end);line(a,b,{stroke:'var(--direction)','stroke-width':5,'stroke-linecap':'round'},g);const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1;line([b[0]-dx/len*15-dy/len*7,b[1]-dy/len*15+dx/len*7],b,{stroke:'var(--direction)','stroke-width':4},g);line([b[0]-dx/len*15+dy/len*7,b[1]-dy/len*15-dx/len*7],b,{stroke:'var(--direction)','stroke-width':4},g);
+}
+geo.edges.forEach(([a,b])=>line(proj(centered(geo.verts[a])),proj(centered(geo.verts[b])),{stroke:'var(--edge)','stroke-width':2.1},g));
+const atomDraw=geo.atoms.map((p,i)=>({p,idx:i,z:rotate(centered(p),cam)[2]})).sort((a,b)=>a.z-b.z);
+atomDraw.forEach(({p,idx})=>{const q=proj(centered(p));drawSphere(g,q,idx>=12&&type==='hcp'?8:7.5,'var(--atom)',1)});
+drawAxes(g,cam,geo.labels,proj);
+if(mode==='plane'){$('main-label').textContent='('+[$('h').value,$('k').value,$('l').value].join(' ')+') plane';$('main-scene-title').textContent='3D Miller plane';}
+else{$('main-label').textContent='['+[$('u').value,$('v').value,$('w').value].join(' ')+'] direction';$('main-scene-title').textContent='3D Miller direction';}
+$('status').textContent=(mode==='plane'?'Highlighted plane ('+[$('h').value,$('k').value,$('l').value].join(' ')+') in ':'Direction ['+[$('u').value,$('v').value,$('w').value].join(' ')+'] in ')+({sc:'Simple cubic',bcc:'BCC',fcc:'FCC',hcp:'HCP'}[type])+'. Drag to rotate the crystal.';
+}
+function resetMainCamera(){camera.x=-.42;camera.y=.58;camera.z=0;camera.zoom=1;drawMain()}
+function resetCrystal(){mode='plane';$('mode-plane').setAttribute('aria-pressed','true');$('mode-direction').setAttribute('aria-pressed','false');$('plane-controls').hidden=false;$('direction-controls').hidden=true;$('h').value=1;$('k').value=1;$('l').value=1;$('u').value=1;$('v').value=1;$('w').value=1;$('structure').value='sc';resetMainCamera()}
+function readIndices(ids){const vals=ids.map(id=>Number($(id).value));return vals.every(v=>Number.isInteger(v)&&v>=-4&&v<=4)&&vals.some(v=>v!==0)}
+function updateMain(){const ids=mode==='plane'?['h','k','l']:['u','v','w'];if(!readIndices(ids)){$('status').textContent='Enter whole numbers from −4 to 4; the three indices cannot all be zero.';return}drawMain()}
+$('mode-plane').addEventListener('click',()=>{mode='plane';$('mode-plane').setAttribute('aria-pressed','true');$('mode-direction').setAttribute('aria-pressed','false');$('plane-controls').hidden=false;$('direction-controls').hidden=true;updateMain()});
+$('mode-direction').addEventListener('click',()=>{mode='direction';$('mode-plane').setAttribute('aria-pressed','false');$('mode-direction').setAttribute('aria-pressed','true');$('plane-controls').hidden=true;$('direction-controls').hidden=false;updateMain()});
+$('visualize').addEventListener('click',updateMain);$('structure').addEventListener('change',drawMain);$('reset-crystal').addEventListener('click',resetCrystal);$('reset-view').addEventListener('click',resetMainCamera);
+$('zoom-in').addEventListener('click',()=>{camera.zoom=Math.min(2.4,camera.zoom*1.15);drawMain()});$('zoom-out').addEventListener('click',()=>{camera.zoom=Math.max(.55,camera.zoom/1.15);drawMain()});
+document.querySelectorAll('[data-rotate]').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.rotate;camera[a]+=Math.PI/12;drawMain()}));
 document.querySelectorAll('[data-theme-choice]').forEach(btn=>btn.addEventListener('click',()=>{document.body.dataset.theme=btn.dataset.themeChoice;document.querySelectorAll('[data-theme-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)))}));
-const scene=$('scene');scene.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};scene.classList.add('dragging');scene.setPointerCapture(e.pointerId)});scene.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag={x:e.clientX,y:e.clientY};rotY+=dx*.012;rotX=Math.max(-1.45,Math.min(1.45,rotX+dy*.012));draw()});function stop(){drag=null;scene.classList.remove('dragging')}scene.addEventListener('pointerup',stop);scene.addEventListener('pointercancel',stop);scene.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.55,Math.min(2.4,zoom*(e.deltaY<0?1.08:.92)));draw()},{passive:false});
-document.querySelectorAll('[role=tab]').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('[role=tab]').forEach(t=>t.setAttribute('aria-selected',String(t===tab)));document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=p.id!==tab.getAttribute('aria-controls'))}));
-const stackSeq={bcc:['A','B','A','B','A','B'],fcc:['A','B','C','A','B','C'],hcp:['A','B','A','B','A','B']};
+function attachOrbit(svg,cam,render,setDrag){svg.addEventListener('pointerdown',e=>{setDrag({x:e.clientX,y:e.clientY});svg.classList.add('dragging');svg.setPointerCapture(e.pointerId)});svg.addEventListener('pointermove',e=>{const d=getDrag();if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;setDrag({x:e.clientX,y:e.clientY});cam.y+=dx*.012;cam.x=Math.max(-Math.PI,Math.min(Math.PI,cam.x+dy*.012));cam.z+=dx*.002;render()});const stop=()=>{setDrag(null);svg.classList.remove('dragging')};svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);svg.addEventListener('wheel',e=>{e.preventDefault();cam.zoom=Math.max(.45,Math.min(2.8,cam.zoom*(e.deltaY<0?1.08:.92)));render()},{passive:false})}
+let getMainDrag=()=>drag;attachOrbit($('scene'),camera,drawMain,v=>{drag=v});function getDrag(){return stackDrag}
+function stackAtoms(type,n){
+const out=[];
+if(type==='bcc'){
+for(let z=0;z<n;z++){const shift=z%2===0?0:.5;for(let x=-2;x<=2;x++)for(let y=-2;y<=2;y++)out.push({p:[x*.30+shift*.30,y*.30+shift*.30,z*.48-(n-1)*.24],layer:z,letter:z%2===0?'A':'B',r:7.2})}
+}else{
+const seq=type==='fcc'?['A','B','C']:['A','B'];const dz=.42;
+for(let z=0;z<n;z++){const letter=seq[z%seq.length],shift=letter==='A'?[0,0]:letter==='B'?[.15,.087]:[.30,0];for(let row=-2;row<=2;row++)for(let col=-2;col<=2;col++){const x=col*.30+row*.15+shift[0],y=row*.26+shift[1];out.push({p:[x,y,z*dz-(n-1)*dz/2],layer:z,letter,r:7.2})}}
+}
+return out
+}
 function drawStack(){
-const type=$('stackType').value,n=Number($('layerRange').value),seq=stackSeq[type],svg=$('stackScene');svg.replaceChildren();const g=el('g',{},svg);
-const names={bcc:'BCC',fcc:'FCC',hcp:'HCP'},desc={bcc:'BCC has alternating corner-atom and body-centred planes along [001].',fcc:'FCC follows ABCABC stacking along a close-packed direction.',hcp:'HCP follows ABAB stacking: each new layer sits over alternating hollows.'};
-for(let layer=0;layer<n;layer++){const letter=seq[layer],z=layer*.62;let pts=[];
-if(type==='bcc'){if(letter==='A'){for(let x=-2;x<=2;x++)for(let y=-2;y<=2;y++)pts.push([x*.28,y*.28,z])}else{for(let x=-2;x<=2;x++)for(let y=-2;y<=2;y++)pts.push([x*.28+.14,y*.28+.14,z])}}
-else{const shift=letter==='A'?0:letter==='B'?1/3:2/3;for(let row=-2;row<=2;row++)for(let col=-2;col<=2;col++){const x=col*.3+row*.15+shift*.3,y=row*.26;pts.push([x,y,z])}}
-pts.forEach(p=>{const x=320+p[0]*155,y=370-p[1]*145-z*43;el('circle',{cx:x,cy:y,r:7.5,fill:atomColors[letter],stroke:'var(--panel)','stroke-width':1.5,opacity:layer===n-1?1:.62},g)});
-if(layer===n-1){el('text',{x:520,y:370-z*43,fill:atomColors[letter],'font-size':19,'font-weight':800},g).textContent='Layer '+(layer+1)+' · '+letter}
+const type=$('stackType').value,n=Number($('layerRange').value),svg=$('stackScene');svg.replaceChildren();const g=el('g',{},svg),cam=stackCamera,atoms=stackAtoms(type,n),proj=p=>project(p,cam,320,235,180);
+const seq=type==='fcc'?'ABCABC':type==='hcp'?'ABAB':'ABAB';
+if(type==='bcc'){
+const cube=[[-.62,-.62,-(n-1)*.24-.22],[.62,-.62,-(n-1)*.24-.22],[.62,.62,-(n-1)*.24-.22],[-.62,.62,-(n-1)*.24-.22],[-.62,-.62,(n-1)*.24+.22],[.62,-.62,(n-1)*.24+.22],[.62,.62,(n-1)*.24+.22],[-.62,.62,(n-1)*.24+.22]];
+[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(([a,b])=>line(proj(cube[a]),proj(cube[b]),{stroke:'var(--edge)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:.8},g))
+}else{
+for(let z=0;z<n;z++){const zz=z*.42-(n-1)*.42/2;const ring=[];for(let i=0;i<6;i++){const a=Math.PI/3*i;ring.push([.82*Math.cos(a),.82*Math.sin(a),zz])}ring.forEach((p,i)=>line(proj(p),proj(ring[(i+1)%6]),{stroke:'var(--edge)','stroke-width':1.1,'stroke-dasharray':'4 5',opacity:.42},g))}
 }
-for(let i=0;i<n;i++){const y=382-i*.62*43;line([72,y],[550,y],{stroke:'var(--edge)','stroke-width':1,'stroke-dasharray':'4 5',opacity:.45},g)}
-$('layerNum').textContent=n;$('stackSequence').textContent=seq.slice(0,n).join('');$('stackLayerName').textContent=seq[n-1];$('stackCount').textContent=n;$('stackBadge').textContent=names[type]+' · '+(type==='bcc'?'ABAB':type==='fcc'?'ABCABC':'ABAB');$('stackStatus').textContent=desc[type]+' Showing '+n+' of 6 layers.';
-}
-$('stackType').addEventListener('change',()=>{const n=$('stackType').value==='fcc'?3:3;$('layerRange').value=n;drawStack()});$('layerRange').addEventListener('input',drawStack);$('prevLayer').addEventListener('click',()=>{$('layerRange').value=Math.max(1,Number($('layerRange').value)-1);drawStack()});$('nextLayer').addEventListener('click',()=>{$('layerRange').value=Math.min(6,Number($('layerRange').value)+1);drawStack()});
-draw();drawStack();
+atoms.map(a=>({...a,z:rotate(a.p,cam)[2]})).sort((a,b)=>a.z-b.z).forEach(a=>drawSphere(g,proj(a.p),a.r,atomColors[a.letter],.97));
+const label=type==='bcc'?'BCC · alternating square layers':type==='fcc'?'FCC · ABCABC close-packed layers':'HCP · ABAB close-packed layers';
+$('layerNum').textContent=n;$('stack-sequence').textContent=atoms.length?atoms.filter(a=>a.layer<n).map(a=>a.letter).filter((v,i,arr)=>i===0||v!==arr[i-1]).join(''):'—';$('stack-current').textContent=n+' layers';$('stackBadge').textContent=label;$('stackStatus').textContent='Rendered '+atoms.length+' atoms in 3D. '+(type==='bcc'?'Adjacent square layers alternate between corner and body-centred positions.':type==='fcc'?'Each layer shifts to the next hollow, repeating ABC.':'Layers alternate between A and B positions.');}
+attachOrbit($('stackScene'),stackCamera,drawStack,v=>{stackDrag=v});
+$('stackType').addEventListener('change',drawStack);$('layerRange').addEventListener('input',drawStack);$('stack-minus').addEventListener('click',()=>{$('layerRange').value=Math.max(1,Number($('layerRange').value)-1);drawStack()});$('stack-plus').addEventListener('click',()=>{$('layerRange').value=Math.min(8,Number($('layerRange').value)+1);drawStack()});
+$('stack-zoom-in').addEventListener('click',()=>{stackCamera.zoom=Math.min(2.8,stackCamera.zoom*1.15);drawStack()});$('stack-zoom-out').addEventListener('click',()=>{stackCamera.zoom=Math.max(.45,stackCamera.zoom/1.15);drawStack()});$('stack-reset').addEventListener('click',()=>{stackCamera.x=-.48;stackCamera.y=.65;stackCamera.z=0;stackCamera.zoom=1;drawStack()});document.querySelectorAll('[data-stack-rotate]').forEach(b=>b.addEventListener('click',()=>{stackCamera[b.dataset.stackRotate]+=Math.PI/12;drawStack()}));
+document.querySelectorAll('[role=tab]').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('[role=tab]').forEach(t=>t.setAttribute('aria-selected',String(t===tab)));document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=p.id!==tab.getAttribute('aria-controls'))}));
+drawMain();drawStack();
 })();
 </script>
 </body>
